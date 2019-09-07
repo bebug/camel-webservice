@@ -1,0 +1,70 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Florian Buchner">
+    <title>Camel Interface</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body class="bg-light">
+<div class="container">
+    <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="logo_background.png" alt="" width="150" height="150">
+        <h2>Customer interface</h2>
+        <p class="lead">This interface enables you to communicate with apache camel endpoints.</p>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12 order-md-1">
+            <h4 class="mb-3">Identity</h4>
+            <form class="needs-validation" novalidate>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName">First name</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName">Last name</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                    </div>
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" id="submitButton" type="button">Continue to checkout</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; 2019 Florian Buchner</p>
+    </footer>
+</div>
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#submitButton").on("click", function(){
+            $.ajax({
+                type: "POST",
+                url: "interface",
+                data: JSON.stringify({firstName: $("#firstName").val(), lastName: $("#lastName").val()}),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8"
+            })
+            .done(function(result) {
+                alert( result );
+            })
+            .fail(function(error) {
+                alert( error );
+            });
+        });
+    });
+
+</script>
+</body>
+</html>
